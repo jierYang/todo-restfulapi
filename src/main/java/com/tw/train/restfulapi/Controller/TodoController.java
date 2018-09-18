@@ -19,12 +19,12 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public ResponseEntity<List<Todo>> getTodoList() throws IOException {
+    public List<Todo> getTodoList() throws IOException {
         return todoService.getTodoList();
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Todo> getToDoById(@PathVariable(value = "id") Long id) throws IOException{
+    public Todo getToDoById(@PathVariable(value = "id") Long id){
         return todoService.getTodoById(id);
     }
 
@@ -34,7 +34,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<List<Todo>> deleteTodo(@PathVariable(value = "id") Long id){
+    public List<Todo> deleteTodo(@PathVariable(value = "id") Long id){
         return todoService.deleteTodo(id);
     }
 }

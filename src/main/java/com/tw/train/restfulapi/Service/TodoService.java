@@ -22,20 +22,12 @@ public class TodoService {
         todoList.add(new Todo(4L, "preparation", "Finished", new Date(), "Learning DevOps"));
     }
 
-    public ResponseEntity<List<Todo>> getTodoList() {
-        try {
-            return new ResponseEntity<>(todoList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public List<Todo> getTodoList() {
+        return todoList;
     }
 
-    public ResponseEntity<Todo> getTodoById(Long id) {
-        try {
-            return new ResponseEntity<>(todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get(), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public Todo getTodoById(Long id) {
+        return todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
     }
 
     public Todo createTodo(Todo todo) {
@@ -44,14 +36,11 @@ public class TodoService {
         return todo;
     }
 
-    public ResponseEntity<List<Todo>> deleteTodo(Long id) {
-        try {
-            Todo todo = todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
-            todoList.remove(todo);
+    public List<Todo> deleteTodo(Long id) {
+
+        Todo todo = todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
+        todoList.remove(todo);
+        return todoList;
 //          todoList = todoList.stream().filter(item -> !item.getId().equals(id)).collect(Collectors.toList());
-            return new ResponseEntity<>(todoList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }
