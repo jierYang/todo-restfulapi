@@ -11,11 +11,11 @@ public class Todo {
 
     public Todo(){}
 
-    public Todo(long id, String action, String status, Date dueDate,String tags){
+    public Todo(long id, String action, String status, Date date,String tags){
         this.id = id;
         this.action = action;
         this.status = status;
-        this.date = dueDate;
+        this.date = date;
         this.tags = tags;
     }
 

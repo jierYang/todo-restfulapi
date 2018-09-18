@@ -1,5 +1,6 @@
 package com.tw.train.restfulapi.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 import com.tw.train.restfulapi.Service.TodoService;
 import com.tw.train.restfulapi.modal.Todo;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,6 +24,8 @@ import java.util.Date;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -38,6 +42,14 @@ public class TodoControllerTest {
     @MockBean
     private TodoService todoService;
 
+    @Test
+    public void shouldGetTodoById() throws Exception {
+        String contentAsString = mockMvc.perform(get("/todos/{id}", 1))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        System.out.println(contentAsString);
+    }
 
     @Test
     public void getTodoListTest() throws Exception {
@@ -58,20 +70,26 @@ public class TodoControllerTest {
     public void getTodoByIdTest() throws Exception {
         Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
         given(todoService.getTodoById(1L)).willReturn(todoOne);
-        mockMvc.perform(get("/todos/{id}",1L))
+        mockMvc.perform(get("/todos/{id}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1L))
                 .andExpect(jsonPath("$.action").value("meeting"));
     }
 
     @Test
-    public void shouldGetTodoById() throws Exception {
-        String contentAsString = mockMvc.perform(get("/todos/{id}", 1))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        System.out.println(contentAsString);
-    }
+    public void createTodoTest() throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = "{\"action\" : \"meeting\", \"status\" : \"To Do\", \"date\" : 1537252078161, \"tags\" : \"Learning DevOps\"}";
+        Todo todo = mapper.readValue(jsonString, Todo.class);
 
+        given(todoService.createTodo(todo)).willReturn(todo);
+
+        mockMvc.perform(post("/todos")
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(mapper.writeValueAsString(todo)))
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("$.id").value(1L))
+//                .andExpect(jsonPath("$.action").value("meeting"));
+    }
 
 }
