@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -90,6 +91,27 @@ public class TodoControllerTest {
                 .andExpect(status().isOk());
 //                .andExpect(jsonPath("$.id").value(1L))
 //                .andExpect(jsonPath("$.action").value("meeting"));
+//verify(todoService,times(1)).createTodo(todo);
+
+//        verifyNoMoreInteractions(todoService);
+    }
+
+    @Test
+    public void deleteTodoByIdTest() throws Exception {
+        Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
+        Todo todoTwo = new Todo(2L, "meeting with LY", "To Do", new Date(), "Learning DevOps");
+
+        List<Todo> todoList = Arrays.asList(todoOne, todoTwo);
+
+        given(todoService.getTodoById(1L)).willReturn(todoTwo);
+
+
+        mockMvc.perform(delete("/todos/delete/{id}", 1L))
+                .andExpect(status().isOk());
+
+//        verify(todoService, times(1)).getTodoById(1L);
+//        verify(todoService, times(1)).deleteTodo(1L);
+//        verifyNoMoreInteractions(todoService);
     }
 
 }
