@@ -31,7 +31,7 @@ public class TodoController {
         return todoService.createTodo(todo);
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public List<Todo> deleteTodo(@PathVariable(value = "id") Long id) throws NotFoundException {
         if (todoService.getTodoById(id) == null) {
             throw new NotFoundException();

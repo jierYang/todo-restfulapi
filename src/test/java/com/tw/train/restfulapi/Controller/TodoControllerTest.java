@@ -106,7 +106,7 @@ public class TodoControllerTest {
         given(todoService.getTodoById(1L)).willReturn(todoTwo);
 
 
-        mockMvc.perform(delete("/todos/delete/{id}", 1L))
+        mockMvc.perform(delete("/todos/{id}", 1L))
                 .andExpect(status().isOk());
 
 //        verify(todoService, times(1)).getTodoById(1L);
