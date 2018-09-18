@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class Todo {
     private long id;
-    private String name;
+    private String action;
     private String status;
-    private Date dueDate;
+    private Date date;
+    private String tags;
 
     public Todo(){}
 
-    public Todo(long id, String name, String status, Date dueDate){
+    public Todo(long id, String action, String status, Date dueDate,String tags){
         this.id = id;
-        this.name = name;
+        this.action = action;
         this.status = status;
-        this.dueDate = dueDate;
+        this.date = dueDate;
+        this.tags = tags;
     }
 
     public Long getId(){
@@ -25,15 +27,23 @@ public class Todo {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getAction() {
+        return action;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public Date getDueDate() {
-        return dueDate;
+    public Date getDate() {
+        return date;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }
