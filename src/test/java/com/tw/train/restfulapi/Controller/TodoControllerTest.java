@@ -40,7 +40,7 @@ public class TodoControllerTest {
 
 
     @Test
-    public void getTodoList() throws Exception {
+    public void getTodoListTest() throws Exception {
         Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
         Todo todoTwo = new Todo(2L, "meeting with LY", "To Do", new Date(), "Learning DevOps");
 
@@ -52,6 +52,16 @@ public class TodoControllerTest {
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].id").value(1L))
                 .andExpect(jsonPath("$[1].id").value(2L));
+    }
+
+    @Test
+    public void getTodoByIdTest() throws Exception {
+        Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
+        given(todoService.getTodoById(1L)).willReturn(todoOne);
+        mockMvc.perform(get("/todos/{id}",1L))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(1L))
+                .andExpect(jsonPath("$.action").value("meeting"));
     }
 
     @Test
