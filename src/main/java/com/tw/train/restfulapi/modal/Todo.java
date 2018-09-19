@@ -1,8 +1,16 @@
 package com.tw.train.restfulapi.modal;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Date;
 
+
+@Entity
+
 public class Todo {
+    @Id
+    @GeneratedValue
     private long id;
     private String action;
     private String status;

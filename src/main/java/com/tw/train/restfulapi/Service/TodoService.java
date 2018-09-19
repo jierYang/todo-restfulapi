@@ -1,18 +1,19 @@
 package com.tw.train.restfulapi.Service;
 
 import com.tw.train.restfulapi.modal.Todo;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import com.tw.train.restfulapi.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class TodoService {
+    @Autowired
+    private TodoRepository todoRepository;
+
     private List<Todo> todoList = new ArrayList<>();
 
     public TodoService() {
@@ -23,24 +24,28 @@ public class TodoService {
     }
 
     public List<Todo> getTodoList() {
-        return todoList;
+        return todoRepository.findAll();
     }
 
     public Todo getTodoById(Long id) {
-        return todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
+//        return todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
+        return todoRepository.getOne(id);
     }
 
     public Todo createTodo(Todo todo) {
-        todo.setId(todoList.get(todoList.size() - 1).getId() + 1L);
-        todoList.add(todo);
-        return todo;
+//        todo.setId(todoList.get(todoList.size() - 1).getId() + 1L);
+//        todoList.add(todo);
+//        return todo;
+        return todoRepository.save(todo);
     }
 
     public List<Todo> deleteTodo(Long id) {
 
-        Todo todo = todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
-        todoList.remove(todo);
-        return todoList;
-//          todoList = todoList.stream().filter(item -> !item.getId().equals(id)).collect(Collectors.toList());
+//        Todo todo = todoList.stream().filter(n -> n.getId().equals(id)).findFirst().get();
+//        todoList.remove(todo);
+//        return todoList;
+////          todoList = todoList.stream().filter(item -> !item.getId().equals(id)).collect(Collectors.toList());
+        todoRepository.delete(id);
+        return todoRepository.findAll();
     }
 }
