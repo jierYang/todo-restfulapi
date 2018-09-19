@@ -1,8 +1,6 @@
 package com.tw.train.restfulapi.modal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 
@@ -13,16 +11,28 @@ public class Todo {
     @GeneratedValue
     private Long id;
     private String action;
-    private Long status_id;
+
     private Date date;
+
+    @OneToOne(cascade = CascadeType.ALL)//City是关系的维护端
+    @JoinColumn(name = "status_id")
+     Status status;
 
     public Todo(){}
 
-    public Todo(Long id, String action, Long status_id, Date date){
+    public Todo(Long id, String action, Date date){
         this.id = id;
         this.action = action;
-        this.status_id = status_id;
+
         this.date = date;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Long getId() {
@@ -49,13 +59,5 @@ public class Todo {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Long getStatus_id() {
-        return status_id;
-    }
-
-    public void setStatus_id(Long status_id) {
-        this.status_id = status_id;
     }
 }
