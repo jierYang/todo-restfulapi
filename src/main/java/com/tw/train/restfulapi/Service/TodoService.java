@@ -21,8 +21,8 @@ public class TodoService {
 
     private List<Todo> todoList = new ArrayList<>();
 
-    public List<Todo> getTodoList() {
-        return todoRepository.findAll();
+    public Page<Todo> getTodoList(Pageable pageable) {
+        return todoRepository.findAll(pageable);
     }
 
     public Todo getTodoById(Long id) {
@@ -39,11 +39,12 @@ public class TodoService {
     }
 
     public Todo UpdateTodo(Todo todo) {
-        return todoRepository.save(todo);
+
+        return todoRepository.exists(todo.getId())? todoRepository.save(todo):null;
     }
 
-    public Page<Todo> getPageSize(Integer page, Integer size) {
-        Pageable pageable = new PageRequest(page - 1, size);
-        return todoRepository.findAll(pageable);
-    }
+//    public Page<Todo> getPageSize(Integer page, Integer size) {
+//        Pageable pageable = new PageRequest(page - 1, size);
+//        return todoRepository.findAll(pageable);
+//    }
 }

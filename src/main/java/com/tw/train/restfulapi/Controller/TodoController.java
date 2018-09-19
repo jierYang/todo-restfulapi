@@ -5,6 +5,7 @@ import com.tw.train.restfulapi.Service.TodoService;
 import com.tw.train.restfulapi.modal.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public List<Todo> getTodoList(){
-        return todoService.getTodoList();
+    public Page<Todo> getTodoList(Pageable pageable){
+        return todoService.getTodoList(pageable);
     }
 
     @GetMapping(value = "/{id}")
@@ -48,8 +49,8 @@ public class TodoController {
         return todoService.UpdateTodo(todo);
     }
 
-    @GetMapping(value = "/page/{page}/size/{size}")
-    public Page<Todo> getPageSize(@PathVariable(value = "page") Integer page, @PathVariable(value = "size") Integer size){
-        return todoService.getPageSize(page,size);
-    }
+//    @GetMapping(value = "/page/{page}/size/{size}")
+//    public Page<Todo> getPageSize(@PathVariable(value = "page") Integer page, @PathVariable(value = "size") Integer size){
+//        return todoService.getPageSize(page,size);
+//    }
 }
