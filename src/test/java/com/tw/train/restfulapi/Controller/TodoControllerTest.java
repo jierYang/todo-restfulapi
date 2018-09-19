@@ -57,8 +57,8 @@ public class TodoControllerTest {
 
     @Test
     public void getTodoListTest() throws Exception {
-        Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
-        Todo todoTwo = new Todo(2L, "meeting with LY", "To Do", new Date(), "Learning DevOps");
+        Todo todoOne = new Todo(1L, "meeting", 1L, new Date());
+        Todo todoTwo = new Todo(2L, "meeting with LY", 1L, new Date());
 
         List<Todo> todoList = Arrays.asList(todoOne, todoTwo);
 
@@ -72,7 +72,7 @@ public class TodoControllerTest {
 
     @Test
     public void getTodoByIdTest() throws Exception {
-        Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
+        Todo todoOne = new Todo(1L, "meeting", 1L, new Date());
         given(todoService.getTodoById(1L)).willReturn(todoOne);
         mockMvc.perform(get("/todos/{id}", 1L))
                 .andExpect(status().isOk())
@@ -83,7 +83,7 @@ public class TodoControllerTest {
     @Test
     public void createTodoTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = "{\"action\" : \"meeting\", \"status\" : \"To Do\", \"date\" : 1537252078161, \"tags\" : \"Learning DevOps\"}";
+        String jsonString = "{\"action\" : \"meeting\", \"status\" : 1, \"date\" : 1537252078161}";
 
         Todo todo = mapper.readValue(jsonString, Todo.class);
 
@@ -95,15 +95,15 @@ public class TodoControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.action").value("meeting"));
 
-        verify(todoService,times(1)).createTodo(any());
+        verify(todoService, times(1)).createTodo(any());
 
         verifyNoMoreInteractions(todoService);
     }
 
     @Test
     public void deleteTodoByIdTest() throws Exception {
-        Todo todoOne = new Todo(1L, "meeting", "To Do", new Date(), "Learning DevOps");
-        Todo todoTwo = new Todo(2L, "meeting with LY", "To Do", new Date(), "Learning DevOps");
+        Todo todoOne = new Todo(1L, "meeting", 1L, new Date());
+        Todo todoTwo = new Todo(2L, "meeting with LY", 1L, new Date());
 
         List<Todo> todoList = Arrays.asList(todoOne, todoTwo);
 

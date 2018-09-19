@@ -11,27 +11,25 @@ import java.util.Date;
 public class Todo {
     @Id
     @GeneratedValue
-    private long id;
+    private Long id;
     private String action;
-    private String status;
+    private Long status_id;
     private Date date;
-    private String tags;
 
     public Todo(){}
 
-    public Todo(long id, String action, String status, Date date,String tags){
+    public Todo(Long id, String action, Long status_id, Date date){
         this.id = id;
         this.action = action;
-        this.status = status;
+        this.status_id = status_id;
         this.date = date;
-        this.tags = tags;
     }
 
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -39,19 +37,25 @@ public class Todo {
         return action;
     }
 
-    public String getStatus() {
-        return status;
+    public void setAction(String action) {
+        this.action = action;
     }
+
+
 
     public Date getDate() {
         return date;
     }
 
-    public String getTags() {
-        return tags;
+    public void setDate(Date date) {
+        this.date = date;
     }
 
-    public void setTags(String tags) {
-        this.tags = tags;
+    public Long getStatus_id() {
+        return status_id;
+    }
+
+    public void setStatus_id(Long status_id) {
+        this.status_id = status_id;
     }
 }
