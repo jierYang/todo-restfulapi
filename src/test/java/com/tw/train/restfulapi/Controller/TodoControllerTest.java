@@ -81,19 +81,20 @@ public class TodoControllerTest {
     public void createTodoTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         String jsonString = "{\"action\" : \"meeting\", \"status\" : \"To Do\", \"date\" : 1537252078161, \"tags\" : \"Learning DevOps\"}";
+
         Todo todo = mapper.readValue(jsonString, Todo.class);
 
-        given(todoService.createTodo(todo)).willReturn(todo);
+        given(todoService.createTodo(any())).willReturn(todo);
 
         mockMvc.perform(post("/todos")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(mapper.writeValueAsString(todo)))
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("$.id").value(1L))
-//                .andExpect(jsonPath("$.action").value("meeting"));
-//verify(todoService,times(1)).createTodo(todo);
+                .content(jsonString))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.action").value("meeting"));
 
-//        verifyNoMoreInteractions(todoService);
+        verify(todoService,times(1)).createTodo(any());
+
+        verifyNoMoreInteractions(todoService);
     }
 
     @Test
@@ -109,9 +110,9 @@ public class TodoControllerTest {
         mockMvc.perform(delete("/todos/{id}", 1L))
                 .andExpect(status().isOk());
 
-//        verify(todoService, times(1)).getTodoById(1L);
-//        verify(todoService, times(1)).deleteTodo(1L);
-//        verifyNoMoreInteractions(todoService);
+        verify(todoService, times(1)).getTodoById(1L);
+        verify(todoService, times(1)).deleteTodo(1L);
+        verifyNoMoreInteractions(todoService);
     }
 
 }
