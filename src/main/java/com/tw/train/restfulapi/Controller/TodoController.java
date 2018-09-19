@@ -39,6 +39,11 @@ public class TodoController {
         return todoService.deleteTodo(id);
     }
 
-//    @PutMapping
-//    public
+    @PutMapping
+    public Todo updateTodo(@RequestBody Todo todo) throws NotFoundException {
+        if (todoService.getTodoById(todo.getId()) == null) {
+            throw new NotFoundException();
+        }
+        return todoService.UpdateTodo(todo);
+    }
 }

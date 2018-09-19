@@ -48,4 +48,8 @@ public class TodoService {
         todoRepository.delete(id);
         return todoRepository.findAll();
     }
+
+    public Todo UpdateTodo(Todo todo) {
+        return todoRepository.save(todo);
+    }
 }
