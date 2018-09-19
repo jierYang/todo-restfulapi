@@ -4,6 +4,7 @@ import com.tw.train.restfulapi.Controller.Exception.NotFoundException;
 import com.tw.train.restfulapi.Service.TodoService;
 import com.tw.train.restfulapi.modal.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,7 +49,7 @@ public class TodoController {
     }
 
     @GetMapping(value = "/page/{page}/size/{size}")
-    public  List<Todo> getPageSize(@PathVariable(value = "page") Integer page,@PathVariable(value = "size") Integer size){
+    public Page<Todo> getPageSize(@PathVariable(value = "page") Integer page, @PathVariable(value = "size") Integer size){
         return todoService.getPageSize(page,size);
     }
 }

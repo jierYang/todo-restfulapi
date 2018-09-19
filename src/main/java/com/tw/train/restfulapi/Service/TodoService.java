@@ -58,9 +58,10 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public List<Todo> getPageSize(Integer page, Integer size) {
+    public Page<Todo> getPageSize(Integer page, Integer size) {
         Pageable pageable = new PageRequest(page-1,size);
-        Page<Todo> result = todoRepository.findAll(pageable);
-        return result.getContent();
+//        Page<Todo> result = todoRepository.findAll(pageable);
+//        return result.getContent();
+        return todoRepository.findAll(pageable);
     }
 }
