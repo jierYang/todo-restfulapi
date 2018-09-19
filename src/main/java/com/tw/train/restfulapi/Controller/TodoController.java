@@ -46,4 +46,9 @@ public class TodoController {
         }
         return todoService.UpdateTodo(todo);
     }
+
+    @GetMapping(value = "/page/{page}/size/{size}")
+    public  List<Todo> getPageSize(@PathVariable(value = "page") Integer page,@PathVariable(value = "size") Integer size){
+        return todoService.getPageSize(page,size);
+    }
 }

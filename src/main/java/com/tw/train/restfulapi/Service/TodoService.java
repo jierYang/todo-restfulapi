@@ -3,6 +3,11 @@ package com.tw.train.restfulapi.Service;
 import com.tw.train.restfulapi.modal.Todo;
 import com.tw.train.restfulapi.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,5 +56,11 @@ public class TodoService {
 
     public Todo UpdateTodo(Todo todo) {
         return todoRepository.save(todo);
+    }
+
+    public List<Todo> getPageSize(Integer page, Integer size) {
+        Pageable pageable = new PageRequest(page-1,size);
+        Page<Todo> result = todoRepository.findAll(pageable);
+        return result.getContent();
     }
 }
