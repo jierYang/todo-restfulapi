@@ -166,7 +166,7 @@ public class TodoControllerTest {
     @Test
     public void createTodoTest() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
-        String jsonString = "{\"action\" : \"meeting\", \"status\" : 1, \"date\" : 1537252078161}";
+        String jsonString = "{\"action\" : \"meeting\", \"status_id\" : 1, \"date\" : 1537252078161}";
 
         Todo todo = mapper.readValue(jsonString, Todo.class);
 
