@@ -29,12 +29,6 @@ public class LoginFilter extends OncePerRequestFilter {
         String token = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(token!=null){
-            // verify token
-//            if(!token.equals("hehe")){
-//                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-//                return;
-//            }
-//            User userFromToken = new User(10L,"hh","1");
             User userFromToken = sessionStore.getUserFromToken(token);
 
             if(userFromToken!=null){

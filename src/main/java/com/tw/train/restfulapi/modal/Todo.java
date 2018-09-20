@@ -15,14 +15,16 @@ public class Todo {
     private String action;
 
     private Date date;
+    
+    private Long userid;
 
     @OneToOne(cascade = CascadeType.ALL)//City是关系的维护端
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "statusid")
      Status status;
 
     @ManyToMany
-    @JoinTable(name = "todo_tags", joinColumns = @JoinColumn(name = "todo_id"),
-            inverseJoinColumns = @JoinColumn(name = "tags_id"))
+    @JoinTable(name = "todo_tags", joinColumns = @JoinColumn(name = "todoid"),
+            inverseJoinColumns = @JoinColumn(name = "tagsid"))
     private List<Tags> tags = new ArrayList<>();
 
     public Todo(){}
@@ -72,5 +74,13 @@ public class Todo {
 
     public void setTags(List<Tags> tags) {
         this.tags = tags;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 }
