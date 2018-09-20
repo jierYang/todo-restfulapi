@@ -3,11 +3,14 @@ package com.tw.train.restfulapi.Controller;
 import com.tw.train.restfulapi.Controller.Exception.NotFoundException;
 import com.tw.train.restfulapi.Service.TodoService;
 import com.tw.train.restfulapi.modal.Todo;
+import com.tw.train.restfulapi.modal.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 
 @RestController
@@ -30,11 +33,15 @@ public class TodoController {
 
     @GetMapping(value = "/{id}")
     public Todo getToDoById(@PathVariable(value = "id") Long id){
+        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //全局变量，service中也可以拿到
+        System.out.println(user);
         return todoService.getTodoById(id);
     }
 
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo){
+        //todo.setuser
         return todoService.createTodo(todo);
     }
 
