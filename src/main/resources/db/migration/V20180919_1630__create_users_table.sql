@@ -1,4 +1,5 @@
-CREATE TABLE tags(
+CREATE TABLE users(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR (255)
+  name VARCHAR (255),
+  password VARCHAR (255)
 )engine=InnoDB DEFAULT CHARSET=gbk;

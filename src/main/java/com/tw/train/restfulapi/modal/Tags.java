@@ -16,10 +16,6 @@ public class Tags {
     private Long id;
     private String name;
 
-//    @ManyToMany(mappedBy = "tags")
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    private List<Tags> todos = new ArrayList<>();
-
     public Tags(){}
     public Tags(Long id, String name) {
         this.id = id;
@@ -37,12 +33,4 @@ public class Tags {
     public String getName() {
         return name;
     }
-
-//    public List<Tags> getTodos() {
-//        return todos;
-//    }
-//
-//    public void setTodos(List<Tags> todos) {
-//        this.todos = todos;
-//    }
 }
