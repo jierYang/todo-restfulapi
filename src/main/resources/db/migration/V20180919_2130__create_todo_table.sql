@@ -5,5 +5,5 @@ CREATE TABLE todo(
   user_id INT,
   FOREIGN KEY (status_id) REFERENCES status(id),
   date DATE,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  FOREIGN KEY (user_id) REFERENCES user(id)
 )engine=InnoDB DEFAULT CHARSET=gbk;
