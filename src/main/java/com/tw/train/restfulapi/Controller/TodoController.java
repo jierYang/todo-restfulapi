@@ -46,15 +46,16 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteTodo(@PathVariable(value = "id") Long id){
+    public ResponseEntity deleteTodo(@PathVariable(value = "id") Long id) {
         return todoService.deleteTodo(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
-    @PutMapping
-    public Todo updateTodo(@RequestBody Todo todo) throws NotFoundException {
-        if (todoService.getTodoById(todo.getId()) == null) {
-            throw new NotFoundException();
+    @PutMapping("/{id}")
+    public Todo updateTodo(@PathVariable(value = "id") Long id, @RequestBody Todo todo) throws AuthorizedException {
+        Todo result = todoService.UpdateTodo(todo);
+        if (result == null) {
+            throw new AuthorizedException();
         }
-        return todoService.UpdateTodo(todo);
+        return result;
     }
 }

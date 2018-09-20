@@ -54,7 +54,8 @@ public class TodoService {
     }
 
     public Todo UpdateTodo(Todo todo) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return todoRepository.exists(todo.getId()) ? todoRepository.save(todo) : null;
+        return todoRepository.existsByUseridAndId(user.getId(),todo.getId()) ? todoRepository.save(todo) : null;
     }
 }

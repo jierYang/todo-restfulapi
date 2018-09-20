@@ -22,4 +22,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     @Transactional
     void deleteByUseridAndId(Long userid, Long todoid);
+
+    Boolean existsByUseridAndId(Long userid, Long todoid);
 }
