@@ -7,6 +7,7 @@ import com.tw.train.restfulapi.modal.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,9 @@ public class TodoController {
     }
 
     @PostMapping
-    public Todo createTodo(@RequestBody Todo todo){
+    public HttpStatus createTodo(@RequestBody Todo todo){
         //todo.setuser
-        return todoService.createTodo(todo);
+        return todoService.createTodo(todo)?HttpStatus.OK:HttpStatus.EXPECTATION_FAILED;
     }
 
     @DeleteMapping("/{id}")

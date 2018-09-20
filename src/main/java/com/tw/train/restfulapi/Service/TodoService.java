@@ -33,8 +33,11 @@ public class TodoService {
         return todoRepository.getOne(id);
     }
 
-    public Todo createTodo(Todo todo) {
-        return todoRepository.save(todo);
+    public Boolean createTodo(Todo todo) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        todo.setUserid(user.getId());
+        todoRepository.save(todo);
+        return todoRepository.save(todo) != null;
     }
 
     public List<Todo> deleteTodo(Long id) {
