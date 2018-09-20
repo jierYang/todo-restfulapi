@@ -21,6 +21,10 @@ public class SessionStore {
         return sessionId;
     }
 
+    public User getUserFromToken(String token) {
+        return userSessions.get(token);
+    }
+
 //    public Map<String, User> getUserSessions() {
 //        return userSessions;
 //    }
