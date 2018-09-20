@@ -40,17 +40,14 @@ public class TodoController {
     }
 
     @PostMapping
-    public HttpStatus createTodo(@RequestBody Todo todo) {
+    public ResponseEntity createTodo(@RequestBody Todo todo) {
         //todo.setuser
-        return todoService.createTodo(todo) ? HttpStatus.OK : HttpStatus.EXPECTATION_FAILED;
+        return todoService.createTodo(todo) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
     @DeleteMapping("/{id}")
-    public List<Todo> deleteTodo(@PathVariable(value = "id") Long id) throws NotFoundException {
-        if (todoService.getTodoById(id) == null) {
-            throw new NotFoundException();
-        }
-        return todoService.deleteTodo(id);
+    public ResponseEntity deleteTodo(@PathVariable(value = "id") Long id){
+        return todoService.deleteTodo(id) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     @PutMapping

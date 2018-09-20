@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import org.springframework.data.domain.Pageable;
 
+import javax.transaction.Transactional;
+
+
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     Page<Todo> findAllByUserid(Long userid,Pageable pageable);
@@ -16,4 +19,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 //    Todo getOneByUserid(Long userid,Long todoid);
 
     Todo findOneByUseridAndId(Long userid, Long todoid);
+
+    @Transactional
+    void deleteByUseridAndId(Long userid, Long todoid);
 }

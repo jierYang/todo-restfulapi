@@ -42,9 +42,15 @@ public class TodoService {
         return todoRepository.save(todo) != null;
     }
 
-    public List<Todo> deleteTodo(Long id) {
-        todoRepository.delete(id);
-        return todoRepository.findAll();
+    public Boolean deleteTodo(Long id) {
+        if (getTodoById(id) == null) {
+            return false;
+        }
+
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        todoRepository.deleteByUseridAndId(user.getId(),id);
+        return true;
     }
 
     public Todo UpdateTodo(Todo todo) {
