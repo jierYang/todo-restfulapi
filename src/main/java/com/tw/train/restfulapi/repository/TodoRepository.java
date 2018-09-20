@@ -12,4 +12,8 @@ import org.springframework.data.domain.Pageable;
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     Page<Todo> findAllByUserid(Long userid,Pageable pageable);
+
+//    Todo getOneByUserid(Long userid,Long todoid);
+
+    Todo findOneByUseridAndId(Long userid, Long todoid);
 }

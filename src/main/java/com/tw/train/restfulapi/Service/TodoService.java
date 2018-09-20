@@ -21,16 +21,18 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+
     private List<Todo> todoList = new ArrayList<>();
 
     public Page<Todo> getTodoList(Pageable pageable) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return todoRepository.findAllByUserid(user.getId(),pageable);
+        return todoRepository.findAllByUserid(user.getId(), pageable);
     }
 
     public Todo getTodoById(Long id) {
-        return todoRepository.getOne(id);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return todoRepository.findOneByUseridAndId(user.getId(), id);
     }
 
     public Boolean createTodo(Todo todo) {
@@ -47,6 +49,6 @@ public class TodoService {
 
     public Todo UpdateTodo(Todo todo) {
 
-        return todoRepository.exists(todo.getId())? todoRepository.save(todo):null;
+        return todoRepository.exists(todo.getId()) ? todoRepository.save(todo) : null;
     }
 }

@@ -1,5 +1,6 @@
 package com.tw.train.restfulapi.Controller;
 
+import com.tw.train.restfulapi.Controller.Exception.AuthorizedException;
 import com.tw.train.restfulapi.Controller.Exception.NotFoundException;
 import com.tw.train.restfulapi.Service.TodoService;
 import com.tw.train.restfulapi.modal.Todo;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,27 +25,24 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public Page<Todo> getTodoList(Pageable pageable){
+    public Page<Todo> getTodoList(Pageable pageable) {
         return todoService.getTodoList(pageable);
     }
 
-//    @GetMapping
-//    public Page<Todo> getTodoListByAction(String action,Pageable pageable){
-//        return todoService.getTodoListByAction(action,pageable);
-//    }
-
     @GetMapping(value = "/{id}")
-    public Todo getToDoById(@PathVariable(value = "id") Long id){
-        User user = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        //全局变量，service中也可以拿到
-        System.out.println(user);
-        return todoService.getTodoById(id);
+    public Todo getToDoById(@PathVariable(value = "id") Long id) throws AuthorizedException {
+        Todo todo = todoService.getTodoById(id);
+
+        if (todo == null) {
+            throw new AuthorizedException();
+        }
+        return todo;
     }
 
     @PostMapping
-    public HttpStatus createTodo(@RequestBody Todo todo){
+    public HttpStatus createTodo(@RequestBody Todo todo) {
         //todo.setuser
-        return todoService.createTodo(todo)?HttpStatus.OK:HttpStatus.EXPECTATION_FAILED;
+        return todoService.createTodo(todo) ? HttpStatus.OK : HttpStatus.EXPECTATION_FAILED;
     }
 
     @DeleteMapping("/{id}")
@@ -61,9 +60,4 @@ public class TodoController {
         }
         return todoService.UpdateTodo(todo);
     }
-
-//    @GetMapping(value = "/page/{page}/size/{size}")
-//    public Page<Todo> getPageSize(@PathVariable(value = "page") Integer page, @PathVariable(value = "size") Integer size){
-//        return todoService.getPageSize(page,size);
-//    }
 }
