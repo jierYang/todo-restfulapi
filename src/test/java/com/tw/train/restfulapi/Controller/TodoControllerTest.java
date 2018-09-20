@@ -155,7 +155,7 @@ public class TodoControllerTest {
 
     @Test
     public void getTodoByIdTest() throws Exception {
-        Todo todoOne = new Todo(1L, "meeting", 1L, new Date());
+        Todo todoOne = new Todo(1L, "meeting", new Date());
         given(todoService.getTodoById(1L)).willReturn(todoOne);
         mockMvc.perform(get("/todos/{id}", 1L))
                 .andExpect(status().isOk())
@@ -185,8 +185,8 @@ public class TodoControllerTest {
 
     @Test
     public void deleteTodoByIdTest() throws Exception {
-        Todo todoOne = new Todo(1L, "meeting", 1L, new Date());
-        Todo todoTwo = new Todo(2L, "meeting with LY", 1L, new Date());
+        Todo todoOne = new Todo(1L, "meeting", new Date());
+        Todo todoTwo = new Todo(2L, "meeting with LY", new Date());
 
         List<Todo> todoList = Arrays.asList(todoOne, todoTwo);
 

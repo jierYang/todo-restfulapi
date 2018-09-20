@@ -1,7 +1,9 @@
 package com.tw.train.restfulapi.modal;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Entity
@@ -17,6 +19,11 @@ public class Todo {
     @OneToOne(cascade = CascadeType.ALL)//City是关系的维护端
     @JoinColumn(name = "status_id")
      Status status;
+
+    @ManyToMany
+    @JoinTable(name = "todo_tags", joinColumns = @JoinColumn(name = "todo_id"),
+            inverseJoinColumns = @JoinColumn(name = "tags_id"))
+    private List<Tags> tags = new ArrayList<>();
 
     public Todo(){}
 
@@ -51,13 +58,19 @@ public class Todo {
         this.action = action;
     }
 
-
-
     public Date getDate() {
         return date;
     }
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tags> tags) {
+        this.tags = tags;
     }
 }

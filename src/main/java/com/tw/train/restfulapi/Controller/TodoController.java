@@ -23,6 +23,11 @@ public class TodoController {
         return todoService.getTodoList(pageable);
     }
 
+//    @GetMapping
+//    public Page<Todo> getTodoListByAction(String action,Pageable pageable){
+//        return todoService.getTodoListByAction(action,pageable);
+//    }
+
     @GetMapping(value = "/{id}")
     public Todo getToDoById(@PathVariable(value = "id") Long id){
         return todoService.getTodoById(id);

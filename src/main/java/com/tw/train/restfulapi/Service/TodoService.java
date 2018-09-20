@@ -43,6 +43,10 @@ public class TodoService {
         return todoRepository.exists(todo.getId())? todoRepository.save(todo):null;
     }
 
+    public Page<Todo> getTodoListByAction(String action,Pageable pageable) {
+        return todoRepository.findAllByAction(action,pageable);
+    }
+
 //    public Page<Todo> getPageSize(Integer page, Integer size) {
 //        Pageable pageable = new PageRequest(page - 1, size);
 //        return todoRepository.findAll(pageable);
