@@ -18,7 +18,7 @@ public class Todo {
     
     private Long userid;
 
-    @OneToOne(cascade = CascadeType.ALL)//City是关系的维护端
+    @OneToOne
     @JoinColumn(name = "statusid")
      Status status;
 

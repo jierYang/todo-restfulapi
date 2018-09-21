@@ -21,22 +21,25 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
-
     private List<Todo> todoList = new ArrayList<>();
 
     public Page<Todo> getTodoList(Pageable pageable) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getPrincipal();
 
         return todoRepository.findAllByUserid(user.getId(), pageable);
     }
 
+    private User getPrincipal() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
     public Todo getTodoById(Long id) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getPrincipal();
         return todoRepository.findOneByUseridAndId(user.getId(), id);
     }
 
     public Boolean createTodo(Todo todo) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getPrincipal();
         todo.setUserid(user.getId());
         todoRepository.save(todo);
         return todoRepository.save(todo) != null;
@@ -47,14 +50,14 @@ public class TodoService {
             return false;
         }
 
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getPrincipal();
 
         todoRepository.deleteByUseridAndId(user.getId(),id);
         return true;
     }
 
     public Todo UpdateTodo(Todo todo) {
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = getPrincipal();
 
         return todoRepository.existsByUseridAndId(user.getId(),todo.getId()) ? todoRepository.save(todo) : null;
     }
