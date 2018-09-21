@@ -1,10 +1,6 @@
 package com.tw.train.restfulapi.security;
 
-import com.sun.javafx.collections.ImmutableObservableList;
 import com.tw.train.restfulapi.modal.User;
-import com.tw.train.restfulapi.session.SessionStore;
-import io.jsonwebtoken.Jwts;
-import org.hibernate.annotations.Immutable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +8,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.crypto.SecretKey;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

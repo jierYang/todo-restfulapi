@@ -6,7 +6,6 @@ import com.tw.train.restfulapi.modal.User;
 import com.tw.train.restfulapi.repository.TodoRepository;
 import com.tw.train.restfulapi.repository.UserRepostiory;
 import com.tw.train.restfulapi.security.JwtSecurity;
-import com.tw.train.restfulapi.session.SessionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
