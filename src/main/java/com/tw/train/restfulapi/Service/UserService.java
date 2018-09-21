@@ -5,6 +5,7 @@ import com.tw.train.restfulapi.modal.Todo;
 import com.tw.train.restfulapi.modal.User;
 import com.tw.train.restfulapi.repository.TodoRepository;
 import com.tw.train.restfulapi.repository.UserRepostiory;
+import com.tw.train.restfulapi.security.JwtSecurity;
 import com.tw.train.restfulapi.session.SessionStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,11 @@ public class UserService {
     @Autowired
     private UserRepostiory userRepository;
 
-    @Autowired
-    private SessionStore sessionStore;
+//    @Autowired
+//    private SessionStore sessionStore;
 
+            @Autowired
+    private JwtSecurity jwtSecurity;
     public HttpStatus registerUser(User user) {
         User result = userRepository.save(user);
         return result == null ? HttpStatus.EXPECTATION_FAILED : HttpStatus.OK;
@@ -27,6 +30,6 @@ public class UserService {
     public String loginUser(User user) {
         User result = userRepository.findByName(user.getName());
 
-        return result.getPassword().equals(user.getPassword()) ? sessionStore.createSession(result) : HttpStatus.UNAUTHORIZED.toString();
+        return result.getPassword().equals(user.getPassword()) ? jwtSecurity.createSession(result) : HttpStatus.UNAUTHORIZED.toString();
     }
 }
