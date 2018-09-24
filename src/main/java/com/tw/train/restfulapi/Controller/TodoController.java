@@ -39,6 +39,11 @@ public class TodoController {
         return todo;
     }
 
+    @GetMapping(value = "/search/{action}")
+    public Page<Todo> serachToDoByAction(@PathVariable(value = "action") String action,Pageable pageable) {
+        return todoService.serachToDoByAction("%"+action+"%",pageable);
+    }
+
     @PostMapping
     public Todo createTodo(@RequestBody Todo todo) {
         return todoService.createTodo(todo);

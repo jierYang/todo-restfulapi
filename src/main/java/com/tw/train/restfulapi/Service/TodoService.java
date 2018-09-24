@@ -61,4 +61,9 @@ public class TodoService {
 
         return todoRepository.existsByUseridAndId(user.getId(),todo.getId()) ? todoRepository.save(todo) : null;
     }
+
+    public Page<Todo> serachToDoByAction(String action, Pageable pageable) {
+        User user = getPrincipal();
+        return todoRepository.findAllByUseridAndActionLike(user.getId(),action, pageable);
+    }
 }

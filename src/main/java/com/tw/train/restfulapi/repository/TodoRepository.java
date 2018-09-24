@@ -24,4 +24,6 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     void deleteByUseridAndId(Long userid, Long todoid);
 
     Boolean existsByUseridAndId(Long userid, Long todoid);
+
+    Page<Todo> findAllByUseridAndActionLike (Long userid,String name,Pageable pageable);
 }
