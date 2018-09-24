@@ -38,11 +38,11 @@ public class TodoService {
         return todoRepository.findOneByUseridAndId(user.getId(), id);
     }
 
-    public Boolean createTodo(Todo todo) {
+    public Todo createTodo(Todo todo) {
         User user = getPrincipal();
         todo.setUserid(user.getId());
-        todoRepository.save(todo);
-        return todoRepository.save(todo) != null;
+        return todoRepository.save(todo);
+//        return todoRepository.save(todo) != null;
     }
 
     public Boolean deleteTodo(Long id) {

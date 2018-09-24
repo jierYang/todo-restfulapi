@@ -18,9 +18,6 @@ import java.util.ArrayList;
 
 @Component
 public class LoginFilter extends OncePerRequestFilter {
-//    @Autowired
-//    SessionStore sessionStore;
-
     @Autowired
     JwtSecurity jwtSecurity;
 

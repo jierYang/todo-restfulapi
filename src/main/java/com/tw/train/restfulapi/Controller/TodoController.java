@@ -40,9 +40,9 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity createTodo(@RequestBody Todo todo) {
-        //todo.setuser
-        return todoService.createTodo(todo) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+    public Todo createTodo(@RequestBody Todo todo) {
+        return todoService.createTodo(todo);
+//        return todoService.createTodo(todo) ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
     }
 
     @DeleteMapping("/{id}")
